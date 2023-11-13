@@ -1,14 +1,36 @@
-const express = require('express')
+const fs = require('fs')
 
-const app = express()
 
-app.use((req, res, next) => {
-    console.log('<h1>hello world</h1>')
-    next()
+fs.readFile('./hello.txt', (err, data) => {
+    console.time('challenge')
+    if(err) {
+        throw (err)
+    }
+    console.log('async', data.toString())
+    console.timeEnd('challenge')
 })
 
-app.get('/', (req, res) => {
-   res.send("getting root")
-   })
+const file = fs.readFileSync('./hello.txt')
+console.log('sync', file.toString())
 
-app.listen(3000)
+
+//APPEND
+/* fs.appendFile('./hello.txt', '!', err => {
+    if (err) {
+        console.log(err)
+    }
+}) */
+
+//WRITE
+/* fs.writeFile('bye.txt', 'papa', err => {
+    if (err) {
+        console.log(err)
+    }
+}) */
+
+//DELETE
+/* fs.unlink('./bye.txt', err => {
+    if (err) {
+        console.log(err)
+    }
+}) */
